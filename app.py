@@ -45,6 +45,15 @@ def callback():
         abort(400)
     return 'OK'
 
+@app.route("/")
+def home():
+  try:
+    # 網址被執行時，等同使用 GET 方法發送 request，觸發 LINE Message API 的 push_message 方法
+    line_bot_api.push_message('你的 User ID', TextSendMessage(text='Hello World!!!'))
+    return 'OK'
+  except:
+    print('error')
+      
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
