@@ -31,21 +31,21 @@ handler = WebhookHandler('8dcd927d61a6387758c23fb9d3112467')
 
 
 # 監聽所有來自 /callback 的 Post Request
-@app.route("/callback", methods=['POST'])
-def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
-    return 'OK'
+# @app.route("/callback", methods=['POST'])
+# def callback():
+#     # get X-Line-Signature header value
+#     signature = request.headers['X-Line-Signature']
+#     # get request body as text
+#     body = request.get_data(as_text=True)
+#     app.logger.info("Request body: " + body)
+#     # handle webhook body
+#     try:
+#         handler.handle(body, signature)
+#     except InvalidSignatureError:
+#         abort(400)
+#     return 'OK'
 
-@app.route("/")
+@app.route("/", methods=['POST'])
 def home():
   try:
     # 網址被執行時，等同使用 GET 方法發送 request，觸發 LINE Message API 的 push_message 方法
